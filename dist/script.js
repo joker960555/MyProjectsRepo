@@ -15555,7 +15555,49 @@ function modals() {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-function tabs() {}
+/* harmony import */ var core_js_modules_es_string_replace__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/es.string.replace */ "./node_modules/core-js/modules/es.string.replace.js");
+/* harmony import */ var core_js_modules_es_string_replace__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_string_replace__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_1__);
+
+
+
+function tabs() {
+  function toggleTabs(tabSel, contentSel, active) {
+    var tabs = document.querySelectorAll(tabSel);
+    tabs.forEach(function (item, i) {
+      item.addEventListener('click', function (event) {
+        var e = event.target;
+
+        if (e && e.parentNode.classList.contains(tabSel.replace(/\./, ''))) {
+          removeActiveClass(tabs, active);
+          item.classList.add(active);
+          toggleContent(contentSel, i);
+        }
+      });
+    });
+  }
+
+  function removeActiveClass(tabs, active) {
+    tabs.forEach(function (item) {
+      return item.classList.remove(active);
+    });
+  }
+
+  function toggleContent(contentSele, index) {
+    var contents = document.querySelectorAll(contentSele);
+    contents.forEach(function (item, i) {
+      item.style.display = 'none';
+
+      if (i === index) {
+        item.style.display = 'block';
+      }
+    });
+  }
+
+  toggleTabs('.glazing_block', '.glazing_content', 'active');
+  toggleTabs('.no_click', '.decoration_content > div > div', 'after_click');
+}
 
 /* harmony default export */ __webpack_exports__["default"] = (tabs);
 
