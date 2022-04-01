@@ -1,18 +1,16 @@
-function forms () {
+import formInputCheck from "./formInputCheck";
+
+
+function forms (state) {
 
     const message = {
         loading: 'Ожидайте, данные загружаются.',
         success: 'Отлично! Ожидайте обратного звонка!',
         failure: 'Упс! Что-то пошло не так...'
     };
-    const messageBlock = document.createElement('div'),
-          inputs = document.querySelectorAll('input[name="user_phone"]');
+    const messageBlock = document.createElement('div');
 
-    inputs.forEach(item => {
-        item.addEventListener('input', () => {
-            item.value = item.value.replace(/\D/,'');
-        });
-    });
+    formInputCheck('input[name="user_phone"]');
 
     function formMessage (form, text, classSelector) {
         messageBlock.classList.add(classSelector);
@@ -28,6 +26,12 @@ function forms () {
             item.addEventListener('submit', (event) => {
                 event.preventDefault();
                 let formData = new FormData(item);
+                if (item.getAttribute('data-calc') === 'end') {
+                    for (let key in state) {
+                        formData.append(key, state[key]);
+                    }
+                }
+                
                 item.reset();
                 formMessage(item, message.loading, 'status');
                 postData(formData, 'assets/server.php')
