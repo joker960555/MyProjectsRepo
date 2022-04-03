@@ -18094,12 +18094,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function modals() {
-  var windows = document.querySelectorAll('[data-modal]');
+  var windows = document.querySelectorAll('[data-modal]'),
+      scroll = calcScroll();
 
   function triggerPush(selectorTrigg, selectorModal, selectorClose) {
     var clickCloseOverlay = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : true;
     var trigger = document.querySelectorAll(selectorTrigg),
-        modal = document.querySelector(selectorModal); //   windows = document.querySelectorAll('[data-modal]');
+        modal = document.querySelector(selectorModal);
 
     if (modal.classList.contains('popup')) {
       setTimeout(function () {
@@ -18124,17 +18125,16 @@ function modals() {
   function openModal(modal, selectorModal, selectorClose, clickCloseOverlay) {
     modal.style.display = 'block';
     document.body.style.overflow = 'hidden';
+    document.body.style.marginRight = "".concat(scroll, "px");
     modal.addEventListener('click', function (event) {
       var e = event.target;
 
       if (e.classList.contains(selectorClose.replace(/\./, '')) || e.parentNode.classList.contains(selectorClose.replace(/\./, ''))) {
-        // closeModal(modal);
         closeAllWindows(windows, clickCloseOverlay);
         closeModal(windows);
       }
 
       if (e.classList.contains(selectorModal.replace(/\./, ''))) {
-        // closeModal(modal);
         closeAllWindows(windows, clickCloseOverlay);
       }
     });
@@ -18145,6 +18145,7 @@ function modals() {
       modalWindows.forEach(function (item) {
         item.style.display = 'none';
         document.body.style.overflow = '';
+        document.body.style.marginRight = "0px";
       });
     }
   }
@@ -18153,7 +18154,20 @@ function modals() {
     modalWindows.forEach(function (item) {
       item.style.display = 'none';
       document.body.style.overflow = '';
+      document.body.style.marginRight = "0px";
     });
+  }
+
+  function calcScroll() {
+    var div = document.createElement('div');
+    div.style.width = '50px';
+    div.style.heigth = '50px';
+    div.style.overflowY = 'scroll';
+    div.style.visibility = 'hidden';
+    document.body.appendChild(div);
+    var width = div.offsetWidth - div.clientWidth;
+    div.remove();
+    return width;
   }
 
   triggerPush('.header_btn', '.popup_engineer', '.popup_close');

@@ -1,10 +1,11 @@
 function modals () {
-    const windows = document.querySelectorAll('[data-modal]');
+    const windows = document.querySelectorAll('[data-modal]'),
+          scroll = calcScroll ();
+
 
     function triggerPush (selectorTrigg, selectorModal, selectorClose, clickCloseOverlay = true ) {
         const trigger = document.querySelectorAll(selectorTrigg),
               modal = document.querySelector(selectorModal);
-            //   windows = document.querySelectorAll('[data-modal]');
         if (modal.classList.contains('popup')) {
             setTimeout(() => openModal(modal, selectorModal, selectorClose, clickCloseOverlay),
              600000);
@@ -25,16 +26,15 @@ function modals () {
     function openModal (modal, selectorModal, selectorClose, clickCloseOverlay) {
        modal.style.display = 'block';
        document.body.style.overflow = 'hidden';
+       document.body.style.marginRight = `${scroll}px`;
        modal.addEventListener('click', (event) =>{
            const e = event.target;
            if (e.classList.contains(selectorClose.replace(/\./,'')) || 
            e.parentNode.classList.contains(selectorClose.replace(/\./,''))){
-            // closeModal(modal);
             closeAllWindows(windows, clickCloseOverlay);
             closeModal(windows);
            }
            if (e.classList.contains(selectorModal.replace(/\./,''))) {
-            // closeModal(modal);
             closeAllWindows(windows, clickCloseOverlay);
            }
        });
@@ -45,6 +45,7 @@ function modals () {
             modalWindows.forEach(item => {
                 item.style.display = 'none';
                 document.body.style.overflow = '';
+                document.body.style.marginRight = `0px`;
             });
         } 
     }
@@ -53,7 +54,21 @@ function modals () {
         modalWindows.forEach(item => {
             item.style.display = 'none';
             document.body.style.overflow = '';
+            document.body.style.marginRight = `0px`;
         });
+    }
+
+    function calcScroll () {
+        const div = document.createElement('div');
+        div.style.width = '50px';
+        div.style.heigth = '50px';
+        div.style.overflowY = 'scroll';
+        div.style.visibility = 'hidden';
+
+        document.body.appendChild(div);
+        const width = div.offsetWidth - div.clientWidth;
+        div.remove();
+        return width;
     }
 
     triggerPush('.header_btn', '.popup_engineer', '.popup_close');
