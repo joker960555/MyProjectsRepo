@@ -17808,6 +17808,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/forms */ "./src/js/modules/forms.js");
 /* harmony import */ var _modules_modalStateChanges__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/modalStateChanges */ "./src/js/modules/modalStateChanges.js");
 /* harmony import */ var _modules_timer__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/timer */ "./src/js/modules/timer.js");
+/* harmony import */ var _modules_images__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/images */ "./src/js/modules/images.js");
+
 
 
 
@@ -17824,6 +17826,7 @@ document.addEventListener('DOMContentLoaded', function () {
   Object(_modules_tabs__WEBPACK_IMPORTED_MODULE_2__["default"])();
   Object(_modules_forms__WEBPACK_IMPORTED_MODULE_3__["default"])(stateObject);
   Object(_modules_modalStateChanges__WEBPACK_IMPORTED_MODULE_4__["default"])(stateObject);
+  Object(_modules_images__WEBPACK_IMPORTED_MODULE_6__["default"])();
 });
 
 /***/ }),
@@ -17961,6 +17964,47 @@ function forms(state) {
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (forms);
+
+/***/ }),
+
+/***/ "./src/js/modules/images.js":
+/*!**********************************!*\
+  !*** ./src/js/modules/images.js ***!
+  \**********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function images() {
+  var container = document.querySelector('.works'),
+      imageForm = document.createElement('div'),
+      bigImage = document.createElement('img');
+  container.append(imageForm);
+  imageForm.append(bigImage);
+  imageForm.classList.add('popup');
+  imageForm.style.justifyContent = 'center';
+  imageForm.style.alignItems = 'center';
+  imageForm.style.display = 'none';
+  container.addEventListener('click', function (event) {
+    event.preventDefault();
+    var e = event.target;
+
+    if (e && e.classList.contains('preview')) {
+      imageForm.style.display = 'flex';
+      var path = e.parentNode.getAttribute('href');
+      bigImage.setAttribute('src', path);
+      document.body.style.overflow = 'hidden';
+    }
+
+    if (e && e.matches('div.popup')) {
+      imageForm.style.display = 'none';
+      document.body.style.overflow = '';
+    }
+  });
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (images);
 
 /***/ }),
 

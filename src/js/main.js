@@ -4,6 +4,7 @@ import tabs from "./modules/tabs";
 import forms from "./modules/forms";
 import modalStateChanges from "./modules/modalStateChanges";
 import timer from "./modules/timer";
+import images from "./modules/images";
 
 document.addEventListener('DOMContentLoaded', () => {
 'use strict';
@@ -16,6 +17,7 @@ modals();
 tabs();
 forms(stateObject);
 modalStateChanges(stateObject);
+images();
 });
 
 
