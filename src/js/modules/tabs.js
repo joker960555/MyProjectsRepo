@@ -1,4 +1,3 @@
-// import { all } from "core-js/fn/promise";
 
 function tabs () {
 
@@ -38,34 +37,3 @@ function tabs () {
 
 export default tabs;
 
-
-
-//
-
-function count (string) {  
-    let counter = 0;
-    let obj = {};
-    let str = string.split('').sort();
-    str.forEach((item, i) => {
-        // console.log(str);
-        if (i === 0 || item === string[i - 1]) {
-            ++counter;
-            obj[item] = counter;
-            console.log(1);
-        }
-        if (item !== string[i - 1]) {
-            console.log(2);
-            counter = 0;
-            // console.log(counter);
-            ++counter;
-            obj[item] = counter;
-            // console.log(counter);
-        }
-        console.log(3);
-    });
-    console.log(obj);
-    //  return {};
-}
-
-const ans = count("ababta");
-console.log(ans);
